@@ -22,7 +22,7 @@ def inference(row, model, feat_cols):
 
 st.title('Diabetes Prediction App')
 st.write('The data for the following example is originally from the National Institute of Diabetes and Digestive and Kidney Diseases and contains information on females at least 21 years old of Pima Indian heritage.')
-image = Image.open(r'C:\Users\ASUS\diabetes\diabetes.png')
+image = Image.open('diabetes.png')
 st.image(image, use_column_width=True)
 st.write('Please fill in the details of the person under consideration in the left sidebar and click on the button below!')
 
@@ -39,7 +39,7 @@ row = [pregnancies, glucose, bloodpressure, skinthickness, bmi, dpf, age]
 if (st.button('Find Health Status')):
     feat_cols = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 
-    model = load(r'C:\Users\ASUS\diabetes\my_model.h5')
+    model = load('my_model.h5')
     
     result = inference(row, model, feat_cols)
     st.title(result)
