@@ -24,7 +24,7 @@ def inference(row, model, feat_cols):
         st.write("You are a healthy person")
     else:
         st.title("You are likely to have {} percent of diabetes".format(round(result*100,2)))
-        st.write("Be careful you a diabetic person")
+        st.write("Be careful you are a diabetic person")
         
     
 
