@@ -22,7 +22,7 @@ def inference(row, model, feat_cols):
     if element <= 0.5:
         st.title("You are a healthy person")
     else:
-        st.title("You are likely to have {0.2f} percent of diabetes".format(result*100))
+        st.title("You are likely to have {} percent of diabetes".format(round(result*100,2)))
         
     
 
