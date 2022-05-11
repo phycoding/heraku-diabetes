@@ -15,7 +15,7 @@ def inference(row, model, feat_cols):
     df = pd.DataFrame([row])
     X = df.values  
     features = pd.DataFrame(X, columns = feat_cols)
-    element = (model.predict(df)*100)
+    element = model.predict(df)
     element = element.pop(0)
     st.title("You are likely to have {} percent of diabetes".format(element))
         
