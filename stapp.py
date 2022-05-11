@@ -20,9 +20,11 @@ def inference(row, model, feat_cols):
         for j in i:
             result = j
     if element <= 0.5:
-        st.title("You are a healthy person")
+        st.title("You are likely to have {} percent chance of diabetes".format(round(result*100,2)))
+        st.write("You are a healthy person")
     else:
         st.title("You are likely to have {} percent of diabetes".format(round(result*100,2)))
+        st.write("Be careful you a diabetic person")
         
     
 
@@ -47,5 +49,4 @@ if (st.button('Find Health Status')):
 
     model = load('my_model.h5')
     
-    result = inference(row, model, feat_cols)
-    st.title(result)
+    inference(row, model, feat_cols)
