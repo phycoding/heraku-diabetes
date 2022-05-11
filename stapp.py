@@ -16,8 +16,10 @@ def inference(row, model, feat_cols):
     X = df.values  
     features = pd.DataFrame(X, columns = feat_cols)
     element = model.predict(df)
-    element = element
-    st.title("You are likely to have {} percent of diabetes".format(element))
+    if element <= 0.5:
+        st.title("You are a healthy person")
+    else:
+        st.title("You are likely to have {} percent of diabetes".format(element))
         
     
 
