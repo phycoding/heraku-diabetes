@@ -15,9 +15,8 @@ def inference(row, model, feat_cols):
     df = pd.DataFrame([row])
     X = df.values  
     features = pd.DataFrame(X, columns = feat_cols)
-    if (model.predict(df)<=0.5):
-        return "Congratulation You are a healthy person!"
-    else: return "Be careful you are more likely to get diabetes!"
+    st.title("You are likely to have {} percent of diabetes".format(model.predict(df)*100))
+        
     
 
 st.title('Diabetes Prediction App')
