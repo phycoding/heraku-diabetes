@@ -53,7 +53,7 @@ if len(options) < 17:
 df = pd.DataFrame(options)
 print(df.T)
 print(df.values)
-df1 = pd.read_csv(r"D:\Downlaod\New folder\Symptom-severity.csv")
+df1 = pd.read_csv("Symptom-severity.csv")
 vals = df.values
 symptoms = df1['Symptom'].unique()
 
