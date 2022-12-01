@@ -36,8 +36,6 @@ def inference(row, model, feat_cols):
         st.write("Be careful you are a diabetic person")
 
 st.sidebar.title('Choose only 17 features')
-
-st.button('Predict')
 options = st.sidebar.multiselect(
     'What are your symptoms',
     ['fatigue', 'weight_loss', 'cough', 'vomiting','breathlessness','headache','chest_pain','muscle_weakness',
