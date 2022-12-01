@@ -1,4 +1,8 @@
 import streamlit as st
+import numpy as np
+st.title("Symptoms checker")
+st.sidebar.title("Select the symptoms you are facing")
+
 import pandas as pd
 from PIL import Image
 import tensorflow as tf
@@ -10,6 +14,11 @@ dependencies = {
 def load(model_path):
     model = tf.keras.models.load_model(model_path,custom_objects=dependencies)
     return model
+
+model = load(r"D:\Downlaod\New folder\soh.h5")
+
+
+
 
 def inference(row, model, feat_cols):
     df = pd.DataFrame([row])
@@ -25,28 +34,50 @@ def inference(row, model, feat_cols):
     else:
         st.title("You are likely to have {} percent of diabetes".format(round(result*100,2)))
         st.write("Be careful you are a diabetic person")
-        
-    
 
-st.title('Diabetes Prediction App')
-st.write('The data for the following example is originally from the National Institute of Diabetes and Digestive and Kidney Diseases and contains information on females at least 21 years old of Pima Indian heritage.')
-image = Image.open('diabetes.png')
-st.image(image, use_column_width=True)
-st.write('Please fill in the details of the person under consideration in the left sidebar and click on the button below!')
+st.sidebar.title('Choose only 17 features')
 
-age =           st.sidebar.number_input("Age in Years", 1, 150, 25, 1)
-pregnancies =   st.sidebar.number_input("Number of Pregnancies", 0, 20, 0, 1)
-glucose =       st.sidebar.slider("Glucose Level", 0, 200, 25, 1)
-skinthickness = st.sidebar.slider("Skin Thickness", 0, 99, 20, 1)
-bloodpressure = st.sidebar.slider('Blood Pressure', 0, 122, 69, 1)
-bmi =           st.sidebar.slider("BMI", 0.0, 67.1, 31.4, 0.1)
-dpf =           st.sidebar.slider("Diabetics Pedigree Function", 0.000, 2.420, 0.471, 0.001)
+st.button('Predict')
+options = st.sidebar.multiselect(
+    'What are your symptoms',
+    ['fatigue', 'weight_loss', 'cough', 'vomiting','breathlessness','headache','chest_pain','muscle_weakness',
+    'stiff_neck','skin_rash','joint_pain','restlessness','high_fever','sweating','dizziness','swelling_joints',
+    'skin_peeling','lethargy','loss_of_balance','movement_stiffness','silver_like_dusting','irregular_sugar_level',
+    'family_history','lack_of_concentration','painful_walking','small_dents_in_nails','blurred_and_distorted_vision',
+    'mucoid_sputum','inflammatory_nails','obesity','excessive_hunger','increased_appetite','polyuria'])
 
-row = [pregnancies, glucose, bloodpressure, skinthickness, bmi, dpf, age]
+st.write('You selected:', options)
 
+if len(options) < 17:
+    options = options + [0 for i in range(0, 17-len(options))]
+df = pd.DataFrame(options)
+print(df.T)
+print(df.values)
+df1 = pd.read_csv(r"D:\Downlaod\New folder\Symptom-severity.csv")
+vals = df.values
+symptoms = df1['Symptom'].unique()
+
+for i in range(len(symptoms)):
+    vals[vals == symptoms[i]] = df1[df1['Symptom'] == symptoms[i]]['weight'].values[0]
+df = pd.DataFrame(vals)
+print(df)
+data = df.values
+x = np.array([df[0].tolist()])
+
+
+disease = ['Diabetes','Bronchial Asthma','Heart attack','Hypertension','Arthritis','Psoriasis']
 if (st.button('Find Health Status')):
-    feat_cols = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'BMI', 'DiabetesPedigreeFunction', 'Age']
+    feat_cols = pd.DataFrame()
 
-    model = load('my_model.h5')
+    model = load('soh.h5')
+    pred = model.predict(x)
+    st.title('According to symptoms the chances of having diseases are:')
     
-    inference(row, model, feat_cols)
+    lst = []
+    for i in pred:
+        for j in i:
+            lst.append(j)
+    chart_data = pd.DataFrame(data = [lst],
+    columns=disease)
+    st.bar_chart(chart_data)
+    st.title(disease[np.argmax(pred)])
