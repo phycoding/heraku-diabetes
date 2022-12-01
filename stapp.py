@@ -15,7 +15,7 @@ def load(model_path):
     model = tf.keras.models.load_model(model_path,custom_objects=dependencies)
     return model
 
-model = load(r"D:\Downlaod\New folder\soh.h5")
+model = load("soh.h5")
 
 
 
