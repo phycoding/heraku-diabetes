@@ -27,7 +27,6 @@ To run the app locally, you will need to have the following installed on your ma
 
 1.  Clone the repository
 
-shCopy code
 
 `git clone https://github.com/phycoding/heraku-diabetes.git`
 
@@ -46,7 +45,7 @@ shCopy code
 1.  Start the app
 
 
-`python app.py`
+`streamlit run stapp.py`
 
 1.  Open your web browser and go to <http://localhost:5000/>
 
