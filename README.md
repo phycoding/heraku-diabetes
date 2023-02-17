@@ -1,7 +1,6 @@
-#Diabetes Prediction web application
 
 
-Diabetes
+Diabetes Prediction web application
 ========
 
 Heroku Diabetes is a simple web app that predicts the likelihood of a person having diabetes based on certain features. The app uses a machine learning model that was trained on the [Pima Indians Diabetes Dataset](https://www.kaggle.com/uciml/pima-indians-diabetes-database).
@@ -32,7 +31,6 @@ To run the app locally, you will need to have the following installed on your ma
 
 1.  Navigate to the project directory
 
-shCopy code
 
 `cd heraku-diabetes`
 
